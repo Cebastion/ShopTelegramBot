@@ -5,12 +5,11 @@ import sanitizedConfig from '../config/config'
 import fs from "fs"
 import path from "path";
 
-export default class ParserService {
+class ParserService {
   private max_count_product = 12;
   private regex = /([^\s,]+)/;
   private game_list: IGames = {
-    games: [],
-    pagination: 0
+    games: []
   };
 
   private async GetGenreGame(url: string): Promise<string[]> {
@@ -35,7 +34,7 @@ export default class ParserService {
     fs.writeFileSync(directory + '/games.json', gamesJson)
   }
 
-  public async GetGames(page: number): Promise<void> {
+  public async GetGames(page: number) {
 
     const html = await axios.get(sanitizedConfig.URL_WEBSITE + `?page=${page}`)
 
@@ -46,8 +45,6 @@ export default class ParserService {
     const $ = cheerio.load(html.data)
 
     const max_count_page = $('#Catalog > div > div.catalog__display-wrapper.catalog__grid-wrapper > div > small-pagination > div > button:nth-child(4) > span').text()
-
-    this.game_list.pagination = parseInt(max_count_page)
 
     if (page > parseInt(max_count_page)) {
       throw Error('not found page')
@@ -81,6 +78,8 @@ export default class ParserService {
     }
     await Promise.all(promises)
 
-    this.WriteGamesJson(this.game_list)
+    return this.game_list
   }
 }
+
+export { ParserService }

@@ -1,0 +1,17 @@
+{
+  "name": "ShopTelegramBot",
+  "version": "1.0.0",
+  "main": "bot.ts",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon bot.ts"
+  },
+  "dependencies": {
+    "@types/node": "^20.10.6",
+    "axios": "^1.6.3",
+    "cheerio": "^1.0.0-rc.12",
+    "dotenv": "^16.3.1",
+    "nodemon": "^3.0.2",
+    "telegraf": "^4.15.3"
+  }
+}

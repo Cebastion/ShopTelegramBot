@@ -4,6 +4,7 @@
   "main": "bot.ts",
   "license": "MIT",
   "scripts": {
+    "start": "ts-node bot.ts",
     "dev": "nodemon bot.ts"
   },
   "dependencies": {

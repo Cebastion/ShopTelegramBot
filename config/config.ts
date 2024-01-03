@@ -8,7 +8,8 @@ dotenv.config({ path: path.resolve(__dirname, "../config/config.env") })
 function GetConfig(): ENV {
   return {
     TOKEN: process.env.TOKEN,
-    URL_WEBSITE: process.env.URL_WEBSITE
+    URL_WEBSITE: process.env.URL_WEBSITE,
+    PAYMENT_TOKEN: process.env.PAYMENT_TOKEN
   }
 }
 
@@ -23,6 +24,6 @@ function getSanitzedConfig(config: ENV): Config {
 
 const config = GetConfig()
 
-const sanitizedConfig  = getSanitzedConfig(config)
+const sanitizedConfig = getSanitzedConfig(config)
 
 export default sanitizedConfig

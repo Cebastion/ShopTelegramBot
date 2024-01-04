@@ -8,7 +8,8 @@ interface IGame {
 interface IGames {
     games: {
         game: IGame
-    }[]
+    }[],
+    pagination: number
 }
 
 export { IGame, IGames }

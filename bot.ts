@@ -1,16 +1,10 @@
-import { Telegraf } from 'telegraf'
-import sanitizedConfig from './config/config'
+import { Bot } from './class/bot.class'
+import { ConfigService } from './config/config.service'
 
-const bot = new Telegraf(sanitizedConfig.TOKEN)
+const bot = new Bot(new ConfigService())
+bot.start()
 
-bot.start((ctx) => {
-  const user = ctx.message.from.username
-  ctx.reply(`Welcome ${user} to GameShop! \nSo, start search game?`, {reply_markup: {
-    inline_keyboard: [
-      [{ text: 'Yes!', callback_data: 'btn-1' }, { text: 'No!', callback_data: 'btn-2' }]
-    ]
-  }})
-})
+/*
 
 bot.action('btn-1', (ctx) => {
   ctx.deleteMessage()
@@ -42,4 +36,4 @@ bot.action('next', (ctx) => {
   }})
 })
 
-bot.launch()
+*/

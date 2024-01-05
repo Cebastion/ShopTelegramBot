@@ -17,8 +17,5 @@
     "src/**/*.ts": {
       "runtime": "nodejs14"
     }
-  },
-  "devDependencies": {
-    "ts-node": "^10.9.2"
   }
 }

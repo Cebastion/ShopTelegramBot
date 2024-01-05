@@ -19,7 +19,7 @@ class Bot {
     this.games = this.game_list
   }
 
-  async start() {
+  start() {
     this.commands = [new StartCommand(this.bot, this.games), new NextGameCommand(this.bot, this.games), new PrevGameCommand(this.bot, this.games), new BuyCommand(this.bot, this.games, this.configService)]
     for (const command of this.commands) {
       command.handle()

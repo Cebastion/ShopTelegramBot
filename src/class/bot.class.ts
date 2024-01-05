@@ -24,7 +24,7 @@ class Bot {
     for (const command of this.commands) {
       command.handle()
     }
-    this.bot.launch()
+    this.bot.launch({webhook: { domain: 'shop-telegram-bot-iota.vercel.app', port: 5500 }})
   }
 }
 

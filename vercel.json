@@ -10,12 +10,15 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "src/bot.ts"
+      "dest": "/src/bot.ts"
     }
   ],
   "functions": {
     "src/**/*.ts": {
       "runtime": "nodejs14"
     }
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2"
   }
 }

@@ -1,9 +1,11 @@
 import { Command } from '../class/command.class'
 import { Telegraf } from 'telegraf'
+import { IGames } from '../parser/interface/game.interface'
+import { IBotContext, SessionData } from '../context/context.interface'
 
 export class StartCommand extends Command {
-  constructor(bot: Telegraf<any>) {
-    super(bot)
+  constructor(bot: Telegraf<IBotContext>, games: IGames) {
+    super(bot, games)
   }
 
   handle(): void {
@@ -12,10 +14,26 @@ export class StartCommand extends Command {
       ctx.reply(`Welcome ${user} to GameShop! \nSo, start search game?`, {
         reply_markup: {
           inline_keyboard: [
-            [{ text: 'Yes!', callback_data: 'btn-1' }, { text: 'No!', callback_data: 'btn-2' }]
+            [{ text: 'Let`s go!', callback_data: 'start' }]
           ]
         }
       })
+    })
+    
+    this.bot.action('start', (ctx) => {
+      if (!ctx.session) {
+        ctx.session = {} as SessionData;
+      }
+      ctx.session.currentGame = 0
+      const game = this.games.games[ctx.session.currentGame]
+      ctx.deleteMessage()
+      
+      ctx.replyWithPhoto({url: game.game.Image}, {caption: `Name: ${game.game.Name} \nCategory: ${game.game.Tag}` ,reply_markup: {
+        inline_keyboard: [
+          [{ text: 'Prev Game', callback_data: 'prev' }, { text: 'Next Game', callback_data: 'next' }],
+          [{text: `Buy for ${game.game.Price}`, callback_data: 'buy'}]
+        ]
+      }})
     })
   }
 }

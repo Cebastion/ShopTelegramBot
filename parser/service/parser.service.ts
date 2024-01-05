@@ -1,16 +1,17 @@
 import axios from 'axios'
 import * as cheerio from 'cheerio'
 import { IGame, IGames } from "../interface/game.interface"
-import sanitizedConfig from '../config/config'
 import fs from "fs"
 import path from "path";
 
 class ParserService {
+  private URL_WEBSITE = 'https://www.gog.com/en/games';
   private max_count_product = 12;
   private regex = /([^\s,]+)/;
   private game_list: IGames = {
-    games: []
+    games: [],
   };
+
 
   private async GetGenreGame(url: string): Promise<string[]> {
     if (url) {
@@ -36,7 +37,7 @@ class ParserService {
 
   public async GetGames(page: number) {
 
-    const html = await axios.get(sanitizedConfig.URL_WEBSITE + `?page=${page}`)
+    const html = await axios.get(this.URL_WEBSITE + `?page=${page}`)
 
     if (html.status !== 200) {
       throw Error('not found site')
@@ -61,9 +62,9 @@ class ParserService {
 
       const promise = (async () => {
         const name_product = $(`${card_product} > div.product-tile__info > div.product-tile__title.ng-star-inserted > product-title > span`).text()
-        const price_product = $(`${card_product} > div.product-tile__info > div.product-tile__footer > div > product-price > price-value > span.final-value.ng-star-inserted`).text()
+        const price_product = $(`${card_product} > div.product-tile__info > div.product-tile__footer > div > product-price > price-value > span.final-value.ng-star-inserted`).text().replace(/\$/, '')
         const image_product = $(`${card_product} > div.product-tile__image-wrapper > store-picture > picture > source:nth-child(1)`).attr('srcset')
-        const url_image_product = image_product?.match(this.regex)?.[1]
+        const url_image_product = image_product?.match(this.regex)?.[1].replace(/\.webp$/, '.png')
         const tags = await this.GetGenreGame(link_page_product)
         const game: IGame = {
           Image: url_image_product || '',

@@ -4,8 +4,8 @@
   "main": "bot.ts",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node bot.ts",
-    "dev": "nodemon bot.ts"
+    "start": "vercel dev",
+    "dev": "ts-node bot.ts"
   },
   "dependencies": {
     "@types/node": "^20.10.6",

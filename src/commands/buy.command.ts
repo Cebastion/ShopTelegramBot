@@ -1,8 +1,8 @@
 import { Telegraf } from 'telegraf'
 import { Command } from '../class/command.class'
-import { IGames, IGame } from '../parser/interface/game.interface'
 import { IConfigService } from '../config/config.interface'
 import { IBotContext } from '../context/context.interface'
+import { IGame, IGames } from '../parser/interface/game.interface'
 
 export class BuyCommand extends Command {
   private TOKEN_PAYMENT: string
@@ -16,15 +16,15 @@ export class BuyCommand extends Command {
       let priceInCents = parseFloat(game.Price) * 100
 
       const invoice = {
-        chat_id: id, 
-        provider_token: this.TOKEN_PAYMENT, 
-        start_parameter: 'get_access', 
-        title: game.Name, 
-        description: game.Name, 
-        currency: 'USD', 
+        chat_id: id,
+        provider_token: this.TOKEN_PAYMENT,
+        start_parameter: 'get_access',
+        title: game.Name,
+        description: game.Name,
+        currency: 'USD',
         prices: [{ label: game.Name, amount: priceInCents }],
         photo_url: game.Image,
-        photo_width: 500, 
+        photo_width: 500,
         photo_height: 300,
         payload: JSON.stringify({
           unique_id: `${id}_${Number(new Date())}`,
@@ -36,7 +36,7 @@ export class BuyCommand extends Command {
     }
 
     this.bot.action('buy', (ctx) => {
-      const {game} = this.games.games[ctx.session.currentGame]
+      const { game } = this.games.games[ctx.session.currentGame]
       return ctx.replyWithInvoice(getInvoice(ctx.from?.id, game))
     })
 

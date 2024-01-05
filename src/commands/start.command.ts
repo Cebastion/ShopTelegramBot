@@ -1,7 +1,7 @@
-import { Command } from '../class/command.class'
 import { Telegraf } from 'telegraf'
-import { IGames } from '../parser/interface/game.interface'
+import { Command } from '../class/command.class'
 import { IBotContext, SessionData } from '../context/context.interface'
+import { IGames } from '../parser/interface/game.interface'
 
 export class StartCommand extends Command {
   constructor(bot: Telegraf<IBotContext>, games: IGames) {
@@ -19,21 +19,23 @@ export class StartCommand extends Command {
         }
       })
     })
-    
+
     this.bot.action('start', (ctx) => {
       if (!ctx.session) {
-        ctx.session = {} as SessionData;
+        ctx.session = {} as SessionData
       }
       ctx.session.currentGame = 0
       const game = this.games.games[ctx.session.currentGame]
       ctx.deleteMessage()
-      
-      ctx.replyWithPhoto({url: game.game.Image}, {caption: `Name: ${game.game.Name} \nCategory: ${game.game.Tag}` ,reply_markup: {
-        inline_keyboard: [
-          [{ text: 'Prev Game', callback_data: 'prev' }, { text: 'Next Game', callback_data: 'next' }],
-          [{text: `Buy for ${game.game.Price}`, callback_data: 'buy'}]
-        ]
-      }})
+
+      ctx.replyWithPhoto({ url: game.game.Image }, {
+        caption: `Name: ${game.game.Name} \nCategory: ${game.game.Tag}`, reply_markup: {
+          inline_keyboard: [
+            [{ text: 'Prev Game', callback_data: 'prev' }, { text: 'Next Game', callback_data: 'next' }],
+            [{ text: `Buy for ${game.game.Price}`, callback_data: 'buy' }]
+          ]
+        }
+      })
     })
   }
 }

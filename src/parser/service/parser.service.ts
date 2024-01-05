@@ -1,8 +1,8 @@
 import axios from 'axios'
 import * as cheerio from 'cheerio'
-import { IGame, IGames } from "../interface/game.interface"
 import fs from "fs"
-import path from "path";
+import path from "path"
+import { IGame, IGames } from "../interface/game.interface"
 
 class ParserService {
   private URL_WEBSITE = 'https://www.gog.com/en/games';
@@ -28,7 +28,7 @@ class ParserService {
 
   private async WriteGamesJson(games: IGames): Promise<void> {
     const directory = path.resolve(__dirname, 'json')
-    if(!fs.existsSync(directory)){
+    if (!fs.existsSync(directory)) {
       fs.mkdirSync(directory)
     }
     const gamesJson = JSON.stringify(games)
@@ -84,3 +84,4 @@ class ParserService {
 }
 
 export { ParserService }
+

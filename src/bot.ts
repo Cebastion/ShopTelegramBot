@@ -12,7 +12,7 @@ parser.GetGames(1).then((game_list: IGames) => {
   bot.start()
 })
 
-app.get('/', (res: Response, req: Request) => {
+app.get('/', (req: Request, res: Response) => {
   res.send("Hello Bot")
 })
 

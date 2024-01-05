@@ -7,13 +7,11 @@ import { IConfigService } from '../config/config.interface'
 import { IBotContext } from '../context/context.interface'
 import { IGames } from '../parser/interface/game.interface'
 import { Command } from './command.class'
-import express from 'express'
 
 class Bot {
   private bot: Telegraf<IBotContext>
   private commands: Command[] = []
   private games: IGames
-  private app = express()
 
   constructor(private readonly configService: IConfigService, private readonly game_list: IGames) {
     this.bot = new Telegraf<IBotContext>(this.configService.get("TOKEN"))

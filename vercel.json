@@ -12,5 +12,10 @@
       "src": "/(.*)",
       "dest": "src/bot.ts"
     }
-  ]
+  ],
+  "functions": {
+    "src/**/*.ts": {
+      "runtime": "nodejs14"
+    }
+  }
 }

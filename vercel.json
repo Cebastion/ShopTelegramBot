@@ -3,13 +3,16 @@
   "builds": [
     {
       "src": "bot.ts",
-      "use": "@vercel/node"
+      "use": "@vercel/node",
+      "config": {
+        "tsconfig": "tsconfig.json"
+      }
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "bot.ts"
+      "dest": "dist/bot.js"
     }
   ]
 }

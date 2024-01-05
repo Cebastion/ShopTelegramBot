@@ -1,11 +1,12 @@
 {
   "name": "ShopTelegramBot",
   "version": "1.0.0",
-  "main": "bot.ts",
+  "main": "bot.js",
   "license": "MIT",
   "scripts": {
-    "start": "vercel dev",
-    "dev": "ts-node bot.ts"
+    "start": "npm run build && node dist/bot.js",
+    "dev": "ts-node src/bot.ts",
+    "build": "tsc"
   },
   "dependencies": {
     "@types/node": "^20.10.6",

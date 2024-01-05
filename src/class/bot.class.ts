@@ -27,7 +27,7 @@ class Bot {
       command.handle()
     }
     this.app.use(await this.bot.createWebhook({domain: 'shop-telegram-bot-iota.vercel.app'}))
-    this.bot.launch(/*{webhook: { domain: 'shop-telegram-bot-iota.vercel.app', port: 5500 }}*/)
+    this.bot.launch({webhook: { domain: 'shop-telegram-bot-iota.vercel.app', port: 5500 }})
     this.app.listen(5500, () => console.log("Listening on port", 5500))
   }
 }

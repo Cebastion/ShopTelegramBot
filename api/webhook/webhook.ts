@@ -1,17 +1,8 @@
-import { Telegraf } from 'telegraf';
+import { Bot } from '../../src/class/bot.class'
+import { VercelRequest, VercelResponse } from '@vercel/node';
+import { ConfigService } from '../../src/config/config.service'
 
-const bot = new Telegraf('6858541342:AAEcuBp5QqmnvNUCVtKkfH0h2a_kF5jQqh4');
-
-export default async (req: any, res: any) => {
-  try {
-    if (req.headers['content-type'] === 'application/json') {
-      await bot.handleUpdate(req.body);
-      res.status(200).end();
-    } else {
-      res.status(400).send('Bad Request');
-    }
-  } catch (error) {
-    console.error('Error handling update:', error);
-    res.status(500).end();
-  }
+const bot = new Bot(new ConfigService())
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+  await bot.webhook(req, res);
 }

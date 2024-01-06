@@ -8,6 +8,7 @@ import { IBotContext } from '../context/context.interface'
 import { IGames } from '../parser/interface/game.interface'
 import { Command } from './command.class'
 import { ParserService } from '../parser/service/parser.service'
+import { VercelRequest, VercelResponse } from '@vercel/node'
 
 class Bot {
   private bot: Telegraf<IBotContext>
@@ -26,6 +27,20 @@ class Bot {
       command.handle()
     }
     this.bot.launch(/*{webhook: { domain: 'shop-telegram-bot-eta.vercel.app', port: 5500 }}*/)
+  }
+
+  async webhook(req: VercelRequest, res: VercelResponse){
+    try {
+      if (req.headers['content-type'] === 'application/json') {
+        await this.bot.handleUpdate(req.body);
+        res.status(200).end();
+      } else {
+        res.status(400).send('Bad Request');
+      }
+    } catch (error) {
+      console.error('Error handling update:', error);
+      res.status(500).end();
+    }
   }
 }
 

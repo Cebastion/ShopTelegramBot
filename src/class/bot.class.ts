@@ -31,6 +31,8 @@ class Bot {
 
   async webhook(req: VercelRequest, res: VercelResponse){
     try {
+      res.send("Hello")
+      await this.bot.handleUpdate(req.body);
       if (req.headers['content-type'] === 'application/json') {
         await this.bot.handleUpdate(req.body);
         res.status(200).end();

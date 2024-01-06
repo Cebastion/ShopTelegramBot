@@ -7,16 +7,17 @@ import { IConfigService } from '../config/config.interface'
 import { IBotContext } from '../context/context.interface'
 import { IGames } from '../parser/interface/game.interface'
 import { Command } from './command.class'
+import { ParserService } from '../parser/service/parser.service'
 
 class Bot {
   private bot: Telegraf<IBotContext>
   private commands: Command[] = []
-  private games: IGames
+  private parser = new ParserService()
+  private games: Promise<IGames> = this.parser.GetGames(1)
 
-  constructor(private readonly configService: IConfigService, private readonly game_list: IGames) {
+  constructor(private readonly configService: IConfigService) {
     this.bot = new Telegraf<IBotContext>(this.configService.get("TOKEN"))
     this.bot.use(session())
-    this.games = this.game_list
   }
 
   start() {
@@ -24,7 +25,7 @@ class Bot {
     for (const command of this.commands) {
       command.handle()
     }
-    this.bot.launch({webhook: { domain: 'shop-telegram-bot-iota.vercel.app', port: 5500 }})
+    this.bot.launch({webhook: { domain: 'shop-telegram-bot-eta.vercel.app', port: 5500 }})
   }
 }
 

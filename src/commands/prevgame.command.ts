@@ -4,14 +4,14 @@ import { IBotContext } from '../context/context.interface'
 import { IGames } from '../parser/interface/game.interface'
 
 export class PrevGameCommand extends Command {
-  constructor(bot: Telegraf<IBotContext>, games: Promise<IGames>) {
+  constructor(bot: Telegraf<IBotContext>, games: IGames) {
     super(bot, games)
   }
 
   handle(): void {
-    this.bot.action('prev', async (ctx) => {
+    this.bot.action('prev',  (ctx) => {
       ctx.session.currentGame--
-      const game = (await this.games).games[ctx.session.currentGame]
+      const game = this.games.games[ctx.session.currentGame]
       ctx.deleteMessage()
 
       ctx.replyWithPhoto({ url: game.game.Image }, {

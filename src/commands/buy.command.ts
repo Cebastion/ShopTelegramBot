@@ -6,7 +6,7 @@ import { IGame, IGames } from '../parser/interface/game.interface'
 
 export class BuyCommand extends Command {
   private TOKEN_PAYMENT: string
-  constructor(bot: Telegraf<IBotContext>, games: Promise<IGames>, readonly configService: IConfigService) {
+  constructor(bot: Telegraf<IBotContext>, games: IGames, readonly configService: IConfigService) {
     super(bot, games)
     this.TOKEN_PAYMENT = this.configService.get("TOKEN_PAYMENT")
   }
@@ -35,8 +35,8 @@ export class BuyCommand extends Command {
       return invoice
     }
 
-    this.bot.action('buy', async (ctx) => {
-      const { game } = (await this.games).games[ctx.session.currentGame]
+    this.bot.action('buy',  (ctx) => {
+      const { game } = this.games.games[ctx.session.currentGame]
       return ctx.replyWithInvoice(getInvoice(ctx.from?.id, game))
     })
 

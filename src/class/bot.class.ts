@@ -13,11 +13,12 @@ class Bot {
   private bot: Telegraf<IBotContext>
   private commands: Command[] = []
   private parser = new ParserService()
-  private games: Promise<IGames> = this.parser.GetGames(1)
+  private games: IGames
 
-  constructor(private readonly configService: IConfigService) {
+  constructor(private readonly configService: IConfigService,private readonly game_list: IGames) {
     this.bot = new Telegraf<IBotContext>(this.configService.get("TOKEN"))
     this.bot.use(session())
+    this.games = game_list
   }
 
   start() {

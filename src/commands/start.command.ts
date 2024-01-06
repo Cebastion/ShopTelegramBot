@@ -4,7 +4,7 @@ import { IBotContext, SessionData } from '../context/context.interface'
 import { IGames } from '../parser/interface/game.interface'
 
 export class StartCommand extends Command {
-  constructor(bot: Telegraf<IBotContext>, games: Promise<IGames>) {
+  constructor(bot: Telegraf<IBotContext>, games: IGames) {
     super(bot, games)
   }
 
@@ -20,12 +20,12 @@ export class StartCommand extends Command {
       })
     })
 
-    this.bot.action('start', async (ctx) => {
+    this.bot.action('start', (ctx) => {
       if (!ctx.session) {
         ctx.session = {} as SessionData
       }
       ctx.session.currentGame = 0
-      const game = (await this.games).games[ctx.session.currentGame]
+      const game = this.games.games[ctx.session.currentGame]
       ctx.deleteMessage()
 
       ctx.replyWithPhoto({ url: game.game.Image }, {

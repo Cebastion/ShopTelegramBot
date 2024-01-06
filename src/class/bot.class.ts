@@ -34,6 +34,7 @@ class Bot {
       if (req.headers['content-type'] === 'application/json') {
         await this.bot.handleUpdate(req.body);
         res.status(200).end();
+        res.send("Hello")
       } else {
         res.status(400).send('Bad Request');
       }

@@ -7,12 +7,10 @@ import { IConfigService } from '../config/config.interface'
 import { IBotContext } from '../context/context.interface'
 import { IGames } from '../parser/interface/game.interface'
 import { Command } from './command.class'
-import { ParserService } from '../parser/service/parser.service'
 
 class Bot {
   private bot: Telegraf<IBotContext>
   private commands: Command[] = []
-  private parser = new ParserService()
   private games: IGames
 
   constructor(private readonly configService: IConfigService,private readonly game_list: IGames) {

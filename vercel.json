@@ -9,8 +9,11 @@
   ],
   "routes": [
     {
-      "src": "/(.*)",
+      "src": "/api/webhook",
       "dest": "/src/bot.ts"
     }
-  ]
+  ],
+  "github": {
+    "silent": true
+  }
 }

@@ -28,9 +28,6 @@ export class StartCommand extends Command {
       const game = this.games.games[ctx.session.currentGame]
       ctx.deleteMessage()
 
-      ctx.reply("Loading....")
-
-      ctx.deleteMessage()
       ctx.replyWithPhoto({ url: game.game.Image }, {
         caption: `Name: ${game.game.Name} \nCategory: ${game.game.Tag}`, reply_markup: {
           inline_keyboard: [

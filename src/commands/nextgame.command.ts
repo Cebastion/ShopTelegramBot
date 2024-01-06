@@ -13,7 +13,7 @@ export class NextGameCommand extends Command {
       ctx.session.currentGame++
       const game = this.games.games[ctx.session.currentGame]
       ctx.deleteMessage()
-
+      
       ctx.replyWithPhoto({ url: game.game.Image }, {
         caption: `Name: ${game.game.Name} \nCategory: ${game.game.Tag}`, reply_markup: {
           inline_keyboard: [

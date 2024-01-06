@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "public": true,
   "builds": [
     {
       "src": "src/**/*.ts",
@@ -9,7 +10,7 @@
   ],
   "routes": [
     {
-      "src": "/api/webhook/webhook.ts",
+      "src": "/(.*)",
       "dest": "/src/bot.ts"
     }
   ],
